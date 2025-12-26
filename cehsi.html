@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>Excel 自动处理工具</title>
+  <style>
+    body {
+      font-family: Arial, "Microsoft YaHei", sans-serif;
+      background: #f5f7fa;
+      padding: 40px;
+    }
+    .container {
+      max-width: 500px;
+      margin: auto;
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,.1);
+      text-align: center;
+    }
+    h2 {
+      margin-bottom: 20px;
+    }
+    input[type="file"] {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #409eff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background: #aaa;
+    }
+    .status {
+      margin-top: 15px;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h2>Excel 自动处理工具</h2>
+
+    <!-- ⭐ 关键：原生 form，不用 fetch -->
+    <form
+      action="http://127.0.0.1:9001/process-excel"
+      method="post"
+      enctype="multipart/form-data"
+      onsubmit="return showLoading();"
+    >
+      <input type="file" name="file" accept=".xlsx,.xls" required>
+      <button type="submit" id="uploadBtn">上传并处理</button>
+    </form>
+
+    <div class="status" id="status"></div>
+  </div>
+
+  <script>
+    function showLoading() {
+      document.getElementById("uploadBtn").disabled = true;
+      document.getElementById("status").innerText = "正在处理，请稍候...";
+      return true; //  必须返回 true
+    }
+  </script>
+</body>
+</html>
+
